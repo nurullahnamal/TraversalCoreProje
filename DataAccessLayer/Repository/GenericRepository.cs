@@ -30,8 +30,8 @@ namespace DataAccessLayer.Repository
         }
         public void Update(T t)
         {
-                using var c = new Context();
-                c.Update(t);
+            using var c = new Context();
+            c.Update(t);
         }
     }
 }
