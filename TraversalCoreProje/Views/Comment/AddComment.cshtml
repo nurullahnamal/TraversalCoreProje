@@ -3,7 +3,7 @@
     <p class="mb-4">
         İşaretle Alanları doldurmanız gerekmektedir
     </p>
-    <form method="post">
+    <form method="post"asp-action="AddComment" asp-controller="Comment">
 
         <div class="form-group">
             <textarea name="CommentContent" class="form-control" placeholder="Yorumunuz" required=""
@@ -16,7 +16,7 @@
                        required="">
             </div>
             <div class="form-group col-lg-6">
-                <input type="text" name="DestinationID" class="form-control" placeholder="Destination ID*" required="">
+                <input type="text" name="DestinationID"  class="form-control" placeholder="Destination ID*" required="">
             </div>
         </div>
 
