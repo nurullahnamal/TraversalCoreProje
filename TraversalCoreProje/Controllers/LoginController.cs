@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje.Controllers
 {
     [AllowAnonymous]
-
     public class LoginController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -24,7 +27,6 @@ namespace TraversalCoreProje.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> SignUp(UserRegisterViewModel p)
         {
@@ -54,13 +56,11 @@ namespace TraversalCoreProje.Controllers
             return View(p);
         }
 
-
         [HttpGet]
         public IActionResult SignIn()
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> SignIn(UserSignInViewModel p)
         {
@@ -69,14 +69,14 @@ namespace TraversalCoreProje.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Destination");
+                    return RedirectToAction("Index", "Profile", new { area = "Member" });
                 }
                 else
                 {
                     return RedirectToAction("SignIn", "Login");
                 }
             }
-            return View(p);
+            return View();
         }
     }
 }
