@@ -2,6 +2,7 @@ using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje
 {
@@ -15,7 +16,8 @@ namespace TraversalCoreProje
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>();
-            builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>()
+                .AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
 
             builder.Services.AddMvc(config =>
             {
