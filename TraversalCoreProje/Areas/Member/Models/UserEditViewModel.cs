@@ -10,6 +10,7 @@
         public string mail { get; set; }
         public string imageurl { get; set; }
         public IFormFile Image { get; set; }
+        
     }
 
 
