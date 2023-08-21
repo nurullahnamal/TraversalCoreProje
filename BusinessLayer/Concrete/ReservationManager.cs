@@ -12,7 +12,7 @@ public class ReservationManager : IReservationService
     {
         _reservationDal=reservationDal;
     }
-    
+
     public void TAdd(Reservation t)
     {
         _reservationDal.Insert(t);
