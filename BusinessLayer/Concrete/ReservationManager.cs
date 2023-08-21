@@ -13,9 +13,21 @@ public class ReservationManager : IReservationService
         _reservationDal=reservationDal;
     }
 
-    public List<Reservation> GetListApprovalreservation(int id)
+    public List<Reservation> GetListWithReservationByAccepted(int id)
     {
-        return _reservationDal.GetListByFilter(x => x.AppUserId == id&&x.Status=="Onay Bekliyor");
+        return _reservationDal.GetListWithReservationByAccepted(id);
+
+    }
+
+    public List<Reservation> GetListWithReservationByPrevious(int id)
+    {
+        return _reservationDal.GetListWithReservationByPrevious(id);
+
+    }
+
+    public List<Reservation> GetListWithReservationByWaitAprroval(int id)
+    {
+        return _reservationDal.GetListWithReservationByWaitAprroval(id);
     }
 
     public void TAdd(Reservation t)
