@@ -20,9 +20,10 @@ namespace DataAccessLayer.Repository
 
         public T GetById(int id)
         {
-            using var c=new Context();
+            using var c = new Context();
             return c.Set<T>().Find(id);
         }
+ 
 
         public List<T> GetList()
         {
@@ -42,10 +43,12 @@ namespace DataAccessLayer.Repository
             c.Add(t);
             c.SaveChanges();
         }
+
         public void Update(T t)
         {
             using var c = new Context();
             c.Update(t);
+            c.SaveChanges();
         }
     }
 }
