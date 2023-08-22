@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.DependencyResolver.Autofac;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
@@ -20,20 +23,19 @@ namespace TraversalCoreProje
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>();
+
             builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>()
                 .AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
 
 
-            builder.Services.AddScoped<ICommentService, CommentManager>();
-            builder.Services.AddScoped<ICommentDal, EfCommentDal>();
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+            builder.Host.ConfigureContainer<ContainerBuilder>(options =>
+            {
+                options.RegisterModule(new AutofacBusinessModule());
+            });
 
 
-            builder.Services.AddScoped<IDestinationService, DestinationManager>();
-            builder.Services.AddScoped<IDestinationDal, EfDestinationDal>();
-             
-            builder.Services.AddScoped<IAppUserService, AppUserManager>();
-            builder.Services.AddScoped<IAppUserDal, EfAppUserDal>();
-            
 
 
             builder.Services.AddMvc(config =>
@@ -45,10 +47,9 @@ namespace TraversalCoreProje
             }); 
 
             builder.Services.AddMvc();
-
-
-
             var app = builder.Build();
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -85,6 +86,7 @@ namespace TraversalCoreProje
                 );
             });
 
+          
 
             app.Run();
 
