@@ -26,7 +26,15 @@ namespace TraversalCoreProje
 
             builder.Services.AddScoped<ICommentService, CommentManager>();
             builder.Services.AddScoped<ICommentDal, EfCommentDal>();
+
+
+            builder.Services.AddScoped<IDestinationService, DestinationManager>();
+            builder.Services.AddScoped<IDestinationDal, EfDestinationDal>();
+             
+            builder.Services.AddScoped<IAppUserService, AppUserManager>();
+            builder.Services.AddScoped<IAppUserDal, EfAppUserDal>();
             
+
 
             builder.Services.AddMvc(config =>
             {
