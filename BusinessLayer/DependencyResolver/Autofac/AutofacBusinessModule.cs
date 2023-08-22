@@ -30,7 +30,8 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<ReservationManager>().As<IReservationService>().SingleInstance();
             builder.RegisterType<EfReservationDal>().As<IReservationDal>().SingleInstance();
 
-
+            builder.RegisterType<GuideManager>().As<IGuideService>().SingleInstance();
+            builder.RegisterType<EfGuideDal>().As<IGuideDal>().SingleInstance();
         }
     }
 }
