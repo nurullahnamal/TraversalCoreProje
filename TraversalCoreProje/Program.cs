@@ -1,3 +1,4 @@
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer.Abstract;
@@ -9,6 +10,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Serilog;
 using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje
@@ -19,7 +21,17 @@ namespace TraversalCoreProje
         {
             var builder = WebApplication.CreateBuilder(args);
 
+          
+
             // Add services to the container.
+            builder.Services.AddLogging(x =>
+            {
+                x.ClearProviders();
+                x.SetMinimumLevel(LogLevel.Debug);
+                x.AddDebug();
+            });
+
+
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>();
@@ -49,6 +61,9 @@ namespace TraversalCoreProje
             builder.Services.AddMvc();
             var app = builder.Build();
 
+            var loggerFactory = app.Services.GetService<ILoggerFactory>();
+            loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+            // /-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
             // Configure the HTTP request pipeline.

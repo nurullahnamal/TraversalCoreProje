@@ -28,19 +28,20 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult AddGuide(Guide guide)
-        {
-            _guideService.TAdd(guide);
 
-            return RedirectToAction("Index");
-        }
         [HttpGet]
         public IActionResult EditGuide(int id)
         {
             var values = _guideService.TGetByID(id);
 
             return View(values);
+        }
+        [HttpPost]
+        public IActionResult AddGuide(Guide guide)
+        {
+            _guideService.TAdd(guide);
+
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
