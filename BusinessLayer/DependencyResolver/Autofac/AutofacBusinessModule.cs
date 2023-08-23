@@ -32,6 +32,11 @@ namespace BusinessLayer.DependencyResolver.Autofac
 
             builder.RegisterType<GuideManager>().As<IGuideService>().SingleInstance();
             builder.RegisterType<EfGuideDal>().As<IGuideDal>().SingleInstance();
+            
+            builder.RegisterType<ExcelManager>().As<IExcelService>().SingleInstance();
+
+            builder.RegisterType<PdfManager>().As<IPdfService>().SingleInstance();
+
         }
     }
 }
