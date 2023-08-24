@@ -37,6 +37,8 @@ namespace BusinessLayer.DependencyResolver.Autofac
 
             builder.RegisterType<PdfManager>().As<IPdfService>().SingleInstance();
 
+
+
         }
     }
 }
