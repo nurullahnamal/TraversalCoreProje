@@ -4,10 +4,14 @@ using Autofac.Extensions.DependencyInjection;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.DependencyResolver.Autofac;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog;
@@ -48,7 +52,11 @@ namespace TraversalCoreProje
             });
 
 
+            builder.Services.AddAutoMapper(typeof(Program));
 
+            builder.Services.AddTransient<IValidator<AnnouncementAddDTOs>, AnnouncementValidator>();
+
+            builder.Services.AddControllersWithViews().AddFluentValidation();
 
             builder.Services.AddMvc(config =>
             {

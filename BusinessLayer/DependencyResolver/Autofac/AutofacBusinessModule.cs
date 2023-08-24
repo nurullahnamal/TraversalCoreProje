@@ -38,7 +38,10 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<PdfManager>().As<IPdfService>().SingleInstance();
 
             builder.RegisterType<ContactUsManager>().As<IContactUsService>().SingleInstance();
-            builder.RegisterType<EfContactUsDal>().As<IContactUsDal>().SingleInstance();
+            builder.RegisterType<EfContactUsDal>().As<IContactUsDal>().SingleInstance();  
+            
+            builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
+            builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
 
 
         }
