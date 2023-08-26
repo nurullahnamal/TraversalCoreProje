@@ -26,6 +26,8 @@ namespace TraversalCoreProje
                 x.AddDebug();
             });
 
+            builder.Services.AddHttpClient();
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<Context>();
 
