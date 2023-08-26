@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using DTOLayer.DTOs.AnnouncementDTOs;
+using EntityLayer.Concrete;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessLayer.DependencyResolver.Autofac
 {
@@ -44,6 +50,9 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
 
 
-        }
+       
+    }
+
+       
     }
 }

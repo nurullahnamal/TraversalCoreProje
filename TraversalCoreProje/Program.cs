@@ -1,20 +1,14 @@
-using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
 using BusinessLayer.DependencyResolver.Autofac;
 using BusinessLayer.ValidationRules;
-using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.EntityFramework;
 using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Serilog;
 using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje
@@ -24,9 +18,6 @@ namespace TraversalCoreProje
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-          
-
             // Add services to the container.
             builder.Services.AddLogging(x =>
             {
@@ -35,26 +26,22 @@ namespace TraversalCoreProje
                 x.AddDebug();
             });
 
-
             builder.Services.AddControllersWithViews();
-
             builder.Services.AddDbContext<Context>();
 
             builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>()
                 .AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
 
-
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-
             builder.Host.ConfigureContainer<ContainerBuilder>(options =>
             {
                 options.RegisterModule(new AutofacBusinessModule());
             });
 
-
             builder.Services.AddAutoMapper(typeof(Program));
 
-            builder.Services.AddTransient<IValidator<AnnouncementAddDTOs>, AnnouncementValidator>();
+            builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
+
 
             builder.Services.AddControllersWithViews().AddFluentValidation();
 

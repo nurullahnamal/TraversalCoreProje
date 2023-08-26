@@ -5,7 +5,7 @@ using FluentValidation;
 namespace BusinessLayer.ValidationRules;
 
 
-public class AnnouncementValidator : AbstractValidator<AnnouncementAddDTOs>
+public class AnnouncementValidator : AbstractValidator<AnnouncementAddDto>
 {
     public AnnouncementValidator()
     {
