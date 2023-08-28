@@ -7,6 +7,7 @@ using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using TraversalCoreProje.CQRS.Commands.DestinationCommands;
@@ -51,6 +52,7 @@ namespace TraversalCoreProje
             builder.Services.AddScoped<CreateDestinationCommandHandler>();
             builder.Services.AddScoped<RemoveDestinationCommandHandler>();
             builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+            builder.Services.AddMediatR(typeof(Program));
 
 
             builder.Services.AddControllersWithViews().AddFluentValidation();
