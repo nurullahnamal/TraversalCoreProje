@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
 
@@ -46,6 +47,11 @@ namespace TraversalCoreProje
             builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
 
             builder.Services.AddScoped<GetAllDestinationQueryHandler>();
+            builder.Services.AddScoped<GetDestinationByIDQueryHandler>();
+            builder.Services.AddScoped<CreateDestinationCommandHandler>();
+            builder.Services.AddScoped<RemoveDestinationCommandHandler>();
+            builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+
 
             builder.Services.AddControllersWithViews().AddFluentValidation();
 
