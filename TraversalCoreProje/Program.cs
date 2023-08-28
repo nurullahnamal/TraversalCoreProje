@@ -9,6 +9,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
 
 namespace TraversalCoreProje
@@ -44,6 +45,7 @@ namespace TraversalCoreProje
 
             builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
 
+            builder.Services.AddScoped<GetAllDestinationQueryHandler>();
 
             builder.Services.AddControllersWithViews().AddFluentValidation();
 
