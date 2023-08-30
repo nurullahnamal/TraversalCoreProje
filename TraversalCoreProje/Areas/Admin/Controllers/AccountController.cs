@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Abstract.AbstactUow;
+﻿
+using BusinessLayer.Abstract.AbstractUow;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

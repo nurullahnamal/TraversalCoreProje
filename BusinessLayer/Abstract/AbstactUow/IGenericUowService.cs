@@ -1,9 +1,16 @@
-﻿namespace BusinessLayer.Abstract.AbstactUow;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public interface IGenericUowService<T>
+namespace BusinessLayer.Abstract.AbstractUow
 {
-    void TInsert(T t);
-    void TUpdate(T t);
-    void TMultiUpdate(List<T> t);
-    T TGetByID(int id);
+    public interface IGenericUowService<T>
+    {
+        void TInsert(T t);
+        void TUpdate(T t);
+        void TMultiUpdate(List<T> t);
+        T TGetByID(int id);
+    }
 }

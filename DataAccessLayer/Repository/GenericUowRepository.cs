@@ -1,17 +1,16 @@
-﻿using System;
+﻿using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Concrete;
 
 namespace DataAccessLayer.Repository
 {
     public class GenericUowRepository<T> : IGenericUowDal<T> where T : class
     {
         private readonly Context _context;
-
         public GenericUowRepository(Context context)
         {
             _context = context;
@@ -30,12 +29,11 @@ namespace DataAccessLayer.Repository
         public void MultiUpdate(List<T> t)
         {
             _context.UpdateRange(t);
-
         }
 
         public void Update(T t)
         {
-           _context.Update(t);
+            _context.Update(t);
         }
     }
 }

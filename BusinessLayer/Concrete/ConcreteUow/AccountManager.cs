@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Abstract.AbstactUow;
+﻿using BusinessLayer.Abstract.AbstractUow;
+using BusinessLayer.Abstract.AbstractUow;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.UnitOfWork;
 using EntityLayer.Concrete;

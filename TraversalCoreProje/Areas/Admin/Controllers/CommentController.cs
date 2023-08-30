@@ -2,6 +2,10 @@
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
@@ -12,13 +16,12 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
 
         public CommentController(ICommentService commentService)
         {
-            _commentService= commentService;
+            _commentService = commentService;
         }
-
 
         public IActionResult Index()
         {
-            var values = _commentService.TGetlistCommentWithDestination();
+            var values = _commentService.TGetListCommentWithDestination();
             return View(values);
         }
 

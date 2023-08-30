@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using BusinessLayer.Abstract;
-using BusinessLayer.Abstract.AbstactUow;
+
+using BusinessLayer.Abstract.AbstractUow;
 using BusinessLayer.Concrete;
 using BusinessLayer.Concrete.ConcreteUow;
 using BusinessLayer.ValidationRules;
@@ -55,7 +56,7 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<EfAccountDal>().As<IAccountDal>().SingleInstance();
 
             builder.RegisterType<UowDal>().As<IUowDal>().SingleInstance();
-
+  
 
 
         }
