@@ -6,10 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using BusinessLayer.Abstract;
+using BusinessLayer.Abstract.AbstactUow;
 using BusinessLayer.Concrete;
+using BusinessLayer.Concrete.ConcreteUow;
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using DataAccessLayer.UnitOfWork;
 using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
@@ -32,7 +35,6 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<AppUserManager>().As<IAppUserService>().SingleInstance();
             builder.RegisterType<EfAppUserDal>().As<IAppUserDal>().SingleInstance();
 
-
             builder.RegisterType<ReservationManager>().As<IReservationService>().SingleInstance();
             builder.RegisterType<EfReservationDal>().As<IReservationDal>().SingleInstance();
 
@@ -49,9 +51,14 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<AnnouncementManager>().As<IAnnouncementService>().SingleInstance();
             builder.RegisterType<EfAnnouncementDal>().As<IAnnouncementDal>().SingleInstance();
 
+            builder.RegisterType<AccountManager>().As<IAccountService>().SingleInstance();
+            builder.RegisterType<EfAccountDal>().As<IAccountDal>().SingleInstance();
 
-       
-    }
+            builder.RegisterType<UowDal>().As<IUowDal>().SingleInstance();
+
+
+
+        }
 
        
     }

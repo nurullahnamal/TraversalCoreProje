@@ -52,6 +52,11 @@ namespace TraversalCoreProje
             builder.Services.AddScoped<CreateDestinationCommandHandler>();
             builder.Services.AddScoped<RemoveDestinationCommandHandler>();
             builder.Services.AddScoped<UpdateDestinationCommandHandler>();
+
+
+
+
+
             builder.Services.AddMediatR(typeof(Program));
 
 
