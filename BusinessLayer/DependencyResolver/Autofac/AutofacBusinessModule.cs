@@ -55,6 +55,9 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<AccountManager>().As<IAccountService>().SingleInstance();
             builder.RegisterType<EfAccountDal>().As<IAccountDal>().SingleInstance();
 
+            builder.RegisterType<CommentManager>().As<ICommentService>().SingleInstance();
+            builder.RegisterType<EfCommentDal>().As<ICommentDal>().SingleInstance();
+
             builder.RegisterType<UowDal>().As<IUowDal>().SingleInstance();
   
 

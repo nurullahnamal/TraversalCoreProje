@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class add_table : Migration
+    public partial class mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,6 +41,35 @@ namespace DataAccessLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Abouts", x => x.AboutID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Accounts",
+                columns: table => new
+                {
+                    AccountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Accounts", x => x.AccountId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Announcements",
+                columns: table => new
+                {
+                    AnnouncementID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.AnnouncementID);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,26 +136,21 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Destinations",
+                name: "ContactUses",
                 columns: table => new
                 {
-                    DestinationID = table.Column<int>(type: "int", nullable: false)
+                    ContactUsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DayNight = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Details1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Details2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image2 = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MessageStatus = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Destinations", x => x.DestinationID);
+                    table.PrimaryKey("PK_ContactUses", x => x.ContactUsID);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,6 +195,8 @@ namespace DataAccessLayer.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TwitterUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GuideListImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InstagramUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -329,6 +355,37 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Destinations",
+                columns: table => new
+                {
+                    DestinationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DayNight = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Details1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Details2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    GuideID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Destinations", x => x.DestinationID);
+                    table.ForeignKey(
+                        name: "FK_Destinations_Guides_GuideID",
+                        column: x => x.GuideID,
+                        principalTable: "Guides",
+                        principalColumn: "GuideID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -338,13 +395,50 @@ namespace DataAccessLayer.Migrations
                     CommentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentState = table.Column<bool>(type: "bit", nullable: false),
-                    DestinationID = table.Column<int>(type: "int", nullable: false)
+                    DestinationID = table.Column<int>(type: "int", nullable: false),
+                    AppUserID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.CommentID);
                     table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_AppUserID",
+                        column: x => x.AppUserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Comments_Destinations_DestinationID",
+                        column: x => x.DestinationID,
+                        principalTable: "Destinations",
+                        principalColumn: "DestinationID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    ReservationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<int>(type: "int", nullable: false),
+                    PersonCount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReservastionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DestinationID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.ReservationID);
+                    table.ForeignKey(
+                        name: "FK_Reservations_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Destinations_DestinationID",
                         column: x => x.DestinationID,
                         principalTable: "Destinations",
                         principalColumn: "DestinationID",
@@ -391,8 +485,28 @@ namespace DataAccessLayer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_AppUserID",
+                table: "Comments",
+                column: "AppUserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_DestinationID",
                 table: "Comments",
+                column: "DestinationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Destinations_GuideID",
+                table: "Destinations",
+                column: "GuideID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_AppUserId",
+                table: "Reservations",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_DestinationID",
+                table: "Reservations",
                 column: "DestinationID");
         }
 
@@ -403,6 +517,12 @@ namespace DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Abouts");
+
+            migrationBuilder.DropTable(
+                name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "Announcements");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -426,16 +546,19 @@ namespace DataAccessLayer.Migrations
                 name: "Contacts");
 
             migrationBuilder.DropTable(
+                name: "ContactUses");
+
+            migrationBuilder.DropTable(
                 name: "Feature2s");
 
             migrationBuilder.DropTable(
                 name: "Features");
 
             migrationBuilder.DropTable(
-                name: "Guides");
+                name: "Newsletters");
 
             migrationBuilder.DropTable(
-                name: "Newsletters");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "SubAbouts");
@@ -451,6 +574,9 @@ namespace DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Destinations");
+
+            migrationBuilder.DropTable(
+                name: "Guides");
         }
     }
 }

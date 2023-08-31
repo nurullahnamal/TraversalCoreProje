@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace TraversalCoreProje.Controllers
 {
@@ -22,13 +21,12 @@ namespace TraversalCoreProje.Controllers
         }
 
         [HttpGet]
-        public async Task< PartialViewResult >AddComment()
+        public PartialViewResult AddComment()
         {
-            var value = await _userManager.FindByNameAsync(User.Identity.Name);
-            ViewBag.destID = value.Id;
-
-            ViewBag.userID = 1;
-            ViewBag.a = "merhaba";
+            // ViewBag.destID = id;
+            //var value = await _userManager.FindByNameAsync(User.Identity.Name);
+            //ViewBag.userID = 5;
+            // ViewBag.a = "merhaba";
             return PartialView();
         }
         [HttpPost]

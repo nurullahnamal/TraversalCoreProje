@@ -3,6 +3,10 @@ using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TraversalCoreProje.Areas.Admin.Controllers
 {
@@ -16,7 +20,6 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         {
             _guideService = guideService;
         }
-
         [Route("")]
         [Route("Index")]
         public IActionResult Index()
@@ -24,14 +27,13 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
             var values = _guideService.TGetList();
             return View(values);
         }
-
         [Route("AddGuide")]
         [HttpGet]
         public IActionResult AddGuide()
         {
-          
             return View();
         }
+
         [Route("AddGuide")]
         [HttpPost]
         public IActionResult AddGuide(Guide guide)
@@ -57,32 +59,29 @@ namespace TraversalCoreProje.Areas.Admin.Controllers
         public IActionResult EditGuide(int id)
         {
             var values = _guideService.TGetByID(id);
-
             return View(values);
         }
-
         [Route("EditGuide")]
         [HttpPost]
         public IActionResult EditGuide(Guide guide)
         {
             _guideService.TUpdate(guide);
-
             return RedirectToAction("Index");
-
         }
+
         [Route("ChangeToTrue/{id}")]
+
         public IActionResult ChangeToTrue(int id)
         {
-           _guideService.TChangeToTrueByGuide(id);
-           return RedirectToAction("Index","Guide",new {area="Admin"});
+            _guideService.TChangeToTrueByGuide(id);
+            return RedirectToAction("Index", "Guide", new { area = "Admin" });
         }
         [Route("ChangeToFalse/{id}")]
+
         public IActionResult ChangeToFalse(int id)
         {
             _guideService.TChangeToFalseByGuide(id);
-
             return RedirectToAction("Index", "Guide", new { area = "Admin" });
         }
-
     }
 }
