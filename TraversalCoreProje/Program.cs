@@ -2,8 +2,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer.DependencyResolver.Autofac;
 using BusinessLayer.ValidationRules;
+using BusinessLayer.ValidationRules.ContactUs;
 using DataAccessLayer.Concrete;
 using DTOLayer.DTOs.AnnouncementDTOs;
+using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -52,9 +54,6 @@ namespace TraversalCoreProje
             builder.Services.AddScoped<CreateDestinationCommandHandler>();
             builder.Services.AddScoped<RemoveDestinationCommandHandler>();
             builder.Services.AddScoped<UpdateDestinationCommandHandler>();
-
-
-
 
 
             builder.Services.AddMediatR(typeof(Program));

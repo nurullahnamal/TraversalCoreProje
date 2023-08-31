@@ -15,6 +15,7 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.UnitOfWork;
 using DTOLayer.DTOs.AnnouncementDTOs;
+using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,6 +60,10 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<EfCommentDal>().As<ICommentDal>().SingleInstance();
 
             builder.RegisterType<UowDal>().As<IUowDal>().SingleInstance();
+            
+            //builder.RegisterType<ContactUS>().As<SendMessageDto>().SingleInstance();
+
+
   
 
 
