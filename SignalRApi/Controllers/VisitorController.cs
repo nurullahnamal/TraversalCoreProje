@@ -29,7 +29,7 @@ namespace SignalRApi.Controllers
                         VisitDate = DateTime.UtcNow.AddHours(x)
                     };
                     _visitorService.SaveVisitor(newVisitor).Wait();
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(100);
                 }
             });
             return Ok("Ziyaretçiler başarılı bir şekilde eklendi");
