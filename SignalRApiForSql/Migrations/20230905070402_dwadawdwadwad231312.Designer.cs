@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalRApiForSql.DAL;
 
@@ -11,9 +12,10 @@ using SignalRApiForSql.DAL;
 namespace SignalRApiForSql.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230905070402_dwadawdwadwad231312")]
+    partial class dwadawdwadwad231312
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +38,7 @@ namespace SignalRApiForSql.Migrations
                     b.Property<int>("CityVisitCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("VisitDate")
+                    b.Property<DateTime>("VisitDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("VisitorID");

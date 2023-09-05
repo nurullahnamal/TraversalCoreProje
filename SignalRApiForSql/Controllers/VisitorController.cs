@@ -26,7 +26,7 @@ namespace SignalRApiForSql.Controllers
                     {
                         City = item,
                         CityVisitCount = random.Next(100, 2000),
-                        VisitDate = DateTime.Now.AddHours(x)
+                        VisitDate = DateTime.Now.AddDays(x)
                     };
                     _visitorService.SaveVisitor(newVisitor).Wait();
                     System.Threading.Thread.Sleep(1000);
