@@ -67,13 +67,19 @@ namespace TraversalCoreProje
                     .RequireAuthenticatedUser()
                     .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
-            }); 
+            });
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/login/SignIn/";
+            });
 
             builder.Services.AddMvc();
             var app = builder.Build();
 
             var loggerFactory = app.Services.GetService<ILoggerFactory>();
             loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+
+            
             // /-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
