@@ -79,19 +79,14 @@ namespace TraversalCoreProje
             builder.Services.AddMvc()
                 .AddViewLocalization();
 
-            builder.Services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("tr-TR")
-                    // Ek desteklenen kültürleri buraya ekleyebilirsiniz.
-                };
-
-                options.DefaultRequestCulture = new RequestCulture("en-US");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
+            //builder.Services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    options.SetDefaultCulture("tr");
+            //    options.AddSupportedUICultures("tr", "en", "fr");
+            //    options.FallBackToParentUICultures = true;
+            //    options.RequestCultureProviders.Clear();
+            //});
+      
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
@@ -118,13 +113,14 @@ namespace TraversalCoreProje
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRequestLocalization();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
 
+            var suppertedCultures = new[] { "en", "fr", "es", "gr", "tr", "de" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suppertedCultures[1]).AddSupportedCultures(suppertedCultures).AddSupportedUICultures(suppertedCultures);
+            app.UseRequestLocalization(localizationOptions);
 
-       
 
             app.MapControllerRoute(
                 name: "default",
