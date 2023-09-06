@@ -12,9 +12,12 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace TraversalCoreProje
 {
@@ -30,6 +33,7 @@ namespace TraversalCoreProje
                 x.SetMinimumLevel(LogLevel.Debug);
                 x.AddDebug();
             });
+            builder.Services.AddRazorPages();
 
             builder.Services.AddHttpClient();
 
@@ -58,8 +62,10 @@ namespace TraversalCoreProje
 
             builder.Services.AddMediatR(typeof(Program));
 
+            builder.Services.AddMvc();
 
             builder.Services.AddControllersWithViews().AddFluentValidation();
+
 
             builder.Services.AddMvc(config =>
             {
@@ -68,12 +74,30 @@ namespace TraversalCoreProje
                     .Build();
                     config.Filters.Add(new AuthorizeFilter(policy));
             });
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            builder.Services.AddMvc()
+                .AddViewLocalization();
+
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("tr-TR")
+                    // Ek desteklenen kültürleri buraya ekleyebilirsiniz.
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/login/SignIn/";
             });
 
-            builder.Services.AddMvc();
             var app = builder.Build();
 
             var loggerFactory = app.Services.GetService<ILoggerFactory>();
@@ -94,10 +118,13 @@ namespace TraversalCoreProje
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRequestLocalization();
             app.UseAuthentication();
             app.UseRouting();
-
             app.UseAuthorization();
+
+
+       
 
             app.MapControllerRoute(
                 name: "default",

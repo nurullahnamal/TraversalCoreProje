@@ -60,11 +60,11 @@ namespace BusinessLayer.DependencyResolver.Autofac
             builder.RegisterType<EfCommentDal>().As<ICommentDal>().SingleInstance();
 
             builder.RegisterType<UowDal>().As<IUowDal>().SingleInstance();
-            
+
             //builder.RegisterType<ContactUS>().As<SendMessageDto>().SingleInstance();
 
 
-  
+
 
 
         }
