@@ -17,6 +17,7 @@ using TraversalCoreProje.CQRS.Commands.DestinationCommands;
 using TraversalCoreProje.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProje.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 
 namespace TraversalCoreProje
@@ -41,6 +42,7 @@ namespace TraversalCoreProje
             builder.Services.AddDbContext<Context>();
 
             builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>()
+                .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider)
                 .AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<Context>();
 
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
